@@ -17,9 +17,10 @@ module ActiveRecord
           if args[2]=="devise"
             require 'devise'
             require "#{ENGINE_ROOT}/config/initializers/devise.rb"
-            require "#{ENGINE_ROOT}/app/models/#{user_cname.downcase}.rb"
+            model_name = user_cname.to_s.split("::").join("/").to_s.split("::").join("/").underscore
+            require "#{ENGINE_ROOT}/app/models/#{model_name}.rb"
           else
-            require "#{ENGINE_ROOT}/app/models/#{user_cname.downcase}.rb"
+            require "#{ENGINE_ROOT}/app/models/#{model_name}.rb"
           end
         end
         inject_into_class(model_path, class_name, model_content)
